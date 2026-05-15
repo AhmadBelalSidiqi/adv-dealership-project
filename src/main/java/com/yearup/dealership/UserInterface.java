@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.yearup.dealership;
 
 import java.util.ArrayList;
 
@@ -51,37 +51,37 @@ public class UserInterface {
     }
 
     private void processGetByPriceRequest() {
-        displayVehicles(dealership.getVehiclesByPrice(
-                UserInput.getUserDouble("Please enter the minimum price: "),
-                UserInput.getUserDouble("Please enter the maximum price: ")));
+        double userMin = UserInput.getUserDouble("Please enter the minimum price: ");
+        double userMax = UserInput.getUserDouble("Please enter the maximum price: ");
+        displayVehicles(dealership.getVehiclesByPrice(userMin, userMax));
     }
 
     private void processGetByMakeModeRequest() {
-        displayVehicles(dealership.getVehiclesByMakeModel(
-                UserInput.getUserString("Please enter the make: "),
-                UserInput.getUserString("Please enter the model: ")));
+        String userMake = UserInput.getUserString("Please enter the make: ");
+        String userModel = UserInput.getUserString("Please enter the model: ");
+        displayVehicles(dealership.getVehiclesByMakeModel(userMake, userModel));
     }
 
     private void processGetByYearRequest() {
-        displayVehicles(dealership.getVehiclesByYear(
-                UserInput.getUserInteger("Please enter start year: "),
-                UserInput.getUserInteger("Please enter end year: ")));
+        int userStartYear = UserInput.getUserInteger("Please enter start year: ");
+        int userEndYear = UserInput.getUserInteger("Please enter end year: ");
+        displayVehicles(dealership.getVehiclesByYear(userStartYear, userEndYear));
     }
 
     private void processGetByMileageRequest() {
-        displayVehicles(dealership.getVehiclesByMileage(
-                UserInput.getUserInteger("Please enter the minimum mileage: "),
-                UserInput.getUserInteger("Please enter the maximum mileage: ")));
+        int userMin = UserInput.getUserInteger("Please enter the minimum mileage: ");
+        int userMax = UserInput.getUserInteger("Please enter the maximum mileage: ");
+        displayVehicles(dealership.getVehiclesByMileage(userMin, userMax));
     }
 
     private void processGetByVehicleColor() {
-        displayVehicles(dealership.getVehiclesByColor(
-                UserInput.getUserString("Please enter the color of vehicle: ")));
+        String userColor = UserInput.getUserString("Please enter the color of vehicle: ");
+        displayVehicles(dealership.getVehiclesByColor(userColor));
     }
 
     private void processGetByVehicleTypeRequest() {
-        displayVehicles(dealership.getVehiclesByType(
-                UserInput.getUserString("Please enter the type of vehicle: ")));
+        String userType = UserInput.getUserString("Please enter the type of vehicle: ");
+        displayVehicles(dealership.getVehiclesByType(userType));
     }
 
     private void processGetAllVehiclesRequest() {

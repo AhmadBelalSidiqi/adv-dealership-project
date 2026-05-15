@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.yearup.dealership;
 
 import java.io.*;
 
@@ -35,7 +35,7 @@ public class DealershipFileManager {
             bufferedWriter.write(dealerShip.getName() + "|" + dealerShip.getAddress() + "|" + dealerShip.getPhone());
             for (Vehicle vehicle : dealerShip.getAllVehicle()) {
                 bufferedWriter.newLine();
-                bufferedWriter.write(vehicle.toString());
+                bufferedWriter.write(vehicle.getCsvFormated());
             }
             bufferedWriter.flush();
             bufferedWriter.close();

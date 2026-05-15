@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.yearup.dealership;
 
 public class Vehicle {
     private final int vin;
@@ -22,6 +22,9 @@ public class Vehicle {
         this.price = price;
     }
 
+    public String getCsvFormated(){
+        return this.vin+"|"+this.year+"|"+this.make+"|"+this.model+"|"+this.vehicleType+"|"+this.color+"|"+this.odometer+"|"+price;
+    }
     public String toString(){
         return this.vin+"|"+this.year+"|"+this.make+"|"+this.model+"|"+this.vehicleType+"|"+this.color+"|"+this.odometer+"|"+price;
     }
