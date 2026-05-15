@@ -1,10 +1,8 @@
 package com.yearup.dealership;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public abstract class Contract {
-    public static ArrayList<Contract> contracts= new ArrayList<>();
     protected final String date;
     protected final String customerName;
     protected final String customerEmail;
@@ -25,9 +23,6 @@ public abstract class Contract {
     public abstract String getCsvFormated();
 
 
-    public void setSoldVehicle(Vehicle soldVehicle) {
-        this.soldVehicle = soldVehicle;
-    }
 
     public String getDate() {
         return date;
@@ -46,6 +41,8 @@ public abstract class Contract {
     }
 
     public static boolean isVehicleEligibleForContract(Vehicle vehicle){
+        if (vehicle == null)
+            return false;
         int currentYear = LocalDate.now().getYear();
         int vehicleYearsOld = currentYear-vehicle.getYear();
         return vehicleYearsOld <= 3;

@@ -22,7 +22,7 @@ public class LeaseContract extends Contract {
 
     @Override
     public String getCsvFormated() {
-        return "LEASE" + this.date + "|" + this.customerName + "|" + this.customerEmail + "|" + soldVehicle.getCsvFormated() + "|" + getExpectedEndingValue() + "|" + getLeaseFee() + "|" + getTotalPrice() + "|" + getMonthlyPayment();
+        return String.format( "LEASE|" + this.date + "|" + this.customerName + "|" + this.customerEmail + "|" + soldVehicle.getCsvFormated() + "|" + getExpectedEndingValue() + "|" + getLeaseFee() + "|%.2f|%.2f",getTotalPrice(),getMonthlyPayment());
     }
 
     @Override

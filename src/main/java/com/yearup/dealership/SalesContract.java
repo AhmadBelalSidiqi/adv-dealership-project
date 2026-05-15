@@ -29,7 +29,7 @@ public class SalesContract extends Contract {
         String financeOption = "No";
         if (this.isFinance)
             financeOption = "Yes";
-        return "SALE" + this.date + "|" + this.customerName + "|" + this.customerEmail + "|" + soldVehicle.getCsvFormated() + "|" + SALES_TAX + "|" + getTotalPrice() + "|" + financeOption + "|" + getMonthlyPayment();
+        return String.format("SALE|" + this.date + "|" + this.customerName + "|" + this.customerEmail + "|" + soldVehicle.getCsvFormated() + "|" + SALES_TAX + "|%.2f|" + financeOption + "|%.2f",getTotalPrice(),getMonthlyPayment());
     }
 
     @Override

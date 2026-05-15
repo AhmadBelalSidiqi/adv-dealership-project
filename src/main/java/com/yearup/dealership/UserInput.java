@@ -33,4 +33,10 @@ public class UserInput {
         System.out.println(prompt);
         return scanner.nextLine();
     }
+
+    public static boolean getBooleanYesNo(String prompt) {
+        System.out.println(prompt);
+        String userInput = scanner.nextLine();
+        return userInput.equalsIgnoreCase("yes");
+    }
 }

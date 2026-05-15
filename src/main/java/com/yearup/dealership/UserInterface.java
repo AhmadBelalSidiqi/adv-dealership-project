@@ -1,5 +1,6 @@
 package com.yearup.dealership;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class UserInterface {
@@ -29,6 +30,8 @@ public class UserInterface {
                     G) Get All Vehicles
                     H) Add Vehicles
                     I) Remove Vehicles
+                    J) Purchase A Vehicle
+                    K) Lease A Vehicle
                     X) Exit the Program
                     """);
 
@@ -42,12 +45,49 @@ public class UserInterface {
                 case "G" -> processGetAllVehiclesRequest();
                 case "H" -> processAddVehicleRequest();
                 case "I" -> processRemoveVehicleRequest();
+                case "J" -> processPurchaseVehicle();
+                case "K" -> processLeaseVehicle();
                 case "X" -> running = false;
                 default -> System.err.println("Wrong Input.");
             }
 
         }
 
+    }
+
+    private void processLeaseVehicle() {
+        String customerName = UserInput.getUserString("Enter your Name: ");
+        String customerEmail = UserInput.getUserString("Enter you email: ");
+        int vehicleVin = UserInput.getUserInteger("Enter the car Vin");
+        String date = String.valueOf(LocalDate.now());
+        Vehicle soldVehicle = getVehicleAndRemoveFromDealership(vehicleVin);
+        if (!Contract.isVehicleEligibleForContract(soldVehicle)) {
+            System.err.println("Sorry We Can not Sale the Vehicle");
+            return;
+        }
+        System.out.println(soldVehicle);
+        LeaseContract leaseContract = new LeaseContract(date,customerName,customerEmail,soldVehicle);
+        System.out.println("Lease Contract created successfully");
+        ContractFileManager.saveContract(leaseContract);
+
+
+    }
+
+    private void processPurchaseVehicle() {
+        String customerName = UserInput.getUserString("Enter your Name: ");
+        String customerEmail = UserInput.getUserString("Enter you email: ");
+        int vehicleVin = UserInput.getUserInteger("Enter the car Vin");
+        String date = String.valueOf(LocalDate.now());
+        Vehicle soldVehicle = getVehicleAndRemoveFromDealership(vehicleVin);
+        if (!Contract.isVehicleEligibleForContract(soldVehicle)) {
+            System.err.println("Sorry We Can not Sale the Vehicle");
+            return;
+        }
+        System.out.println(soldVehicle);
+        boolean isFinance = UserInput.getBooleanYesNo("Do you want to Finance the car (Yes/No): ");
+        SalesContract salesContract = new SalesContract(date,customerName,customerEmail,soldVehicle,isFinance);
+        System.out.println("Sales Contract created successfully");
+        ContractFileManager.saveContract(salesContract);
     }
 
     private void processGetByPriceRequest() {
@@ -95,12 +135,24 @@ public class UserInterface {
 
     private void processRemoveVehicleRequest() {
         int vin = UserInput.getUserInteger("Enter the vin number");
-        for(Vehicle vehicle : dealership.getAllVehicle() )
+        for (Vehicle vehicle : dealership.getAllVehicle())
             if (vehicle.getVin() == vin) {
                 dealership.removeVehicle(vehicle);
                 DealershipFileManager.saveDealership(dealership);
                 return;
             }
+
+    }
+
+    private Vehicle getVehicleAndRemoveFromDealership(int vin) {
+        Vehicle soldVehicle = dealership.getVehicleByVin(vin);
+        if (soldVehicle == null) {
+            System.err.println("A Vehicle with such Vin: "+vin+" does not exit");
+            return null;
+        }
+        dealership.removeVehicle(soldVehicle);
+        DealershipFileManager.saveDealership(dealership);
+        return soldVehicle;
 
     }
 
